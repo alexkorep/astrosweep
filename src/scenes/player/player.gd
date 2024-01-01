@@ -49,5 +49,12 @@ func set_show_ship_trail(value):
 		ShipTrailParticles.emitting = false
 		
 func powerup(powerup_id):
-	if powerup_id == "heart":
-		GameState.increment_lives()
+	PlayerStateMachine.state.powerup(powerup_id)
+
+func increment_rps():
+	# TODO work with ship id
+	var min_wait_time = 0.1
+	var shoot_timer = get_node("%ShootTimer")
+	if shoot_timer.wait_time > min_wait_time:
+		shoot_timer.wait_time /= 2
+	

@@ -25,3 +25,6 @@ func _on_tween_completed(_object, _key):
 
 func damage():
 	pass
+
+func powerup(_powerup_id):
+	pass

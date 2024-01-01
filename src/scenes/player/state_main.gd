@@ -70,3 +70,9 @@ func _on_BlinkTimeoutTimer_timeout():
 	blinking = false
 	get_node("%ShipSprite").visible = true
 	get_node("%BlinkTimer").stop()
+
+func powerup(powerup_id):
+	if powerup_id == "heart":
+		GameState.increment_lives()
+	elif powerup_id == "rps":
+		owner.increment_rps()

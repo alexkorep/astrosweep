@@ -41,8 +41,11 @@ func enemy_kill():
 	ExplosionParticles.emitting = true
 	ExplosionTimer.start()
 	emit_signal("asteroid_killed")
+	# TODO move to a separate function
 	if GameState.check_drop_probability("heart"):
 		drop_powerup("heart")
+	if GameState.check_drop_probability("rps"):
+		drop_powerup("rps")
 	
 func drop_powerup(powerup_id):
 	var powerup = powerup_scene.instance()

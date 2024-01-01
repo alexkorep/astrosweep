@@ -23,3 +23,6 @@ func exit() -> void:
 
 func damage():
 	pass
+
+func powerup(_powerup_id):
+	pass
