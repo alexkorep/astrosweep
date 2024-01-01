@@ -20,3 +20,6 @@ func exit() -> void:
 
 func _on_tween_completed(_object, _key):
 	owner.emit_end_animation_finished()
+
+func kill():
+	pass

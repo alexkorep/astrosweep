@@ -7,3 +7,4 @@ func _ready():
 
 func _process(_delta):
 	get_node("%ScoreLabel").text = str(GameState.score).pad_zeros(5)
+	get_node("%Hearts").count = GameState.lives

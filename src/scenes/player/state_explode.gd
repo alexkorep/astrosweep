@@ -20,3 +20,6 @@ func explosion_finished():
 
 func exit() -> void:
 	pass
+
+func kill():
+	pass

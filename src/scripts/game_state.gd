@@ -8,6 +8,8 @@ var score = 0
 # {score: 0, initials: "AAA"}
 var high_scores = []
 
+var lives = 3
+
 var savegame_filename = "user://savegame.save"
 var highscores_filename = "user://hiscores.save"
 
@@ -21,6 +23,7 @@ func _ready():
 func new_game():
 	funds = 0
 	score = 0
+	lives = 3
 
 # Save the state of the game
 func save_game():
@@ -127,3 +130,10 @@ func add_high_score(initials):
 
 func sort_scores(a, b):
 	return a.score > b.score  
+
+func increment_lives():
+	if lives < 3:
+		lives += 1
+
+func decrement_lives():
+	lives -= 1

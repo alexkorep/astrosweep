@@ -7,6 +7,8 @@ var mouse_pressed := false
 
 var bullet_scene = preload("res://scenes/player/player_bullet.tscn")
 
+var blinking = false
+
 func enter(_msg := {}) -> void:
 	# TODO would it connect multiple times if we enter this mode multiple times?
 	# Should connect be moved to _on_ready?
@@ -47,3 +49,24 @@ func handle_input(event: InputEvent) -> void:
 
 func exit() -> void:
 	owner.ShootTimer.stop()
+
+func kill():
+	if blinking:
+		return
+
+	GameState.decrement_lives()
+	if GameState.lives <= 0:
+		owner.PlayerStateMachine.transition_to("Explode")
+	else:
+		blinking = true
+		get_node("%BlinkTimer").start()
+		get_node("%BlinkTimeoutTimer").start()
+
+func _on_BlinkTimer_timeout():
+	var sprite = get_node("%ShipSprite")
+	sprite.visible = not sprite.visible
+
+func _on_BlinkTimeoutTimer_timeout():
+	blinking = false
+	get_node("%ShipSprite").visible = true
+	get_node("%BlinkTimer").stop()

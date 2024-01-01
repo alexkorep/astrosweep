@@ -4,6 +4,7 @@ var velocity = Vector2.ZERO
 var tween = Tween.new()
 
 func enter(_msg := {}) -> void:
+	owner.Ship.show()
 	owner.add_child(tween)
 	owner.show_ship_trail = true
 	var x = owner.get_viewport_rect().size.x / 2
@@ -19,6 +20,8 @@ func enter(_msg := {}) -> void:
 func exit() -> void:
 	owner.show_ship_trail = false
 
-
 func _on_tween_completed(_object, _key):
 	owner.PlayerStateMachine.transition_to("Main")
+
+func kill():
+	pass

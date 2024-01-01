@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://scenes/player/player_state_machine.gd" type="Script" id=1]
 [ext_resource path="res://assets/ships/fire02.png" type="Texture" id=2]
@@ -9,7 +9,6 @@
 [ext_resource path="res://scenes/player/state_explode.gd" type="Script" id=7]
 [ext_resource path="res://scenes/player/state_start.gd" type="Script" id=8]
 [ext_resource path="res://scenes/player/player.gd" type="Script" id=9]
-[ext_resource path="res://assets/ui/bullet-point.png" type="Texture" id=10]
 [ext_resource path="res://scenes/ship/ship_sprite.tscn" type="PackedScene" id=11]
 
 [sub_resource type="CircleShape2D" id=4]
@@ -88,9 +87,17 @@ script = ExtResource( 5 )
 [node name="Main" type="Node" parent="PlayerStateMachine"]
 script = ExtResource( 6 )
 
+[node name="BlinkTimer" type="Timer" parent="PlayerStateMachine/Main"]
+unique_name_in_owner = true
+wait_time = 0.1
+
+[node name="BlinkTimeoutTimer" type="Timer" parent="PlayerStateMachine/Main"]
+unique_name_in_owner = true
+wait_time = 3.0
+one_shot = true
+
 [node name="Explode" type="Node" parent="PlayerStateMachine"]
 script = ExtResource( 7 )
 
-[node name="Target" type="Sprite" parent="."]
-visible = false
-texture = ExtResource( 10 )
+[connection signal="timeout" from="PlayerStateMachine/Main/BlinkTimer" to="PlayerStateMachine/Main" method="_on_BlinkTimer_timeout"]
+[connection signal="timeout" from="PlayerStateMachine/Main/BlinkTimeoutTimer" to="PlayerStateMachine/Main" method="_on_BlinkTimeoutTimer_timeout"]

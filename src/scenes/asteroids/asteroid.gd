@@ -8,6 +8,8 @@ onready var Sprites = $Sprites
 onready var CollisionShape2D = $CollisionShape2D
 onready var CPUParticles2D = $CPUParticles2D
 
+var powerup_scene = preload("res://scenes/powerup/powerup.tscn")
+
 export var speed := 50
 
 func _ready():
@@ -39,6 +41,12 @@ func enemy_kill():
 	ExplosionParticles.emitting = true
 	ExplosionTimer.start()
 	emit_signal("asteroid_killed")
+	drop_powerup("heart")
+	
+func drop_powerup(powerup_id):
+	var powerup = powerup_scene.instance()
+	powerup.position = position
+	get_tree().root.add_child(powerup)
 
 func _on_ExplosionTimer_timeout():
 	queue_free()
