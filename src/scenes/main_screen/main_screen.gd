@@ -21,6 +21,7 @@ var formation_scenes = [
 
 func _ready():
 	$Background.get_material().set_shader_param("speed_scale", 0.1)
+	GameState.new_game()
 	current_wave = 0
 	update_wave_label()
 
@@ -30,27 +31,25 @@ func update_wave_label():
 # Formation events
 #
 func _on_enemy_died():
-	# TODO add score
-	pass
+	# TODO increase score based on the enemy hp
+	GameState.increment_score(1)
 
 func _on_wave_finished():
 	current_wave += 1
 	next_wave()
 	
 func _process(delta):
-	$HUD.progress = progress
 	if is_paused == false:
 		$Background.get_material().set_shader_param("time", time)
 		time += delta
 	if current_formation != null:
 		current_formation.set_player_pos(Player.position)
 
-func _on_Player_end_animation_finished():
-	# warning-ignore:return_value_discarded
-	get_tree().reload_current_scene()
-
 func _on_Player_ship_exploded():
-	get_tree().reload_current_scene()
+	if GameState.high_score_reached():
+		get_tree().change_scene("res://scenes/high_score/enter_your_initials.tscn")
+	else:
+		get_tree().change_scene("res://scenes/high_score/high_score.tscn")
 
 func _on_Player_player_ready():
 	next_wave()
@@ -65,7 +64,3 @@ func next_wave():
 	current_formation.set_wave(current_wave)
 	get_node("%EnemyFormations").add_child(current_formation)
 	update_wave_label()
-
-
-func _on_ExitButton_pressed():
-	get_tree().change_scene("res://scenes/planet_screen/panet_screen.tscn")

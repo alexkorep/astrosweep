@@ -1,38 +1,26 @@
 extends Node
 
-var WIN_FUNDS = 10_000_000
-
 var funds := 0
 var planet_id: String = ""
 var current_ship_id = 'xq5'
 var owned_ships = ['xq5']
-
-var price_vadiance = 0.05
-
-# TODO add an option to choose the seed or change it
-# Make new seed for a new game
-var map_generation_seed = 283777479
-
-# array of prices for each good
-var prices = []
-# Stock on the planet and player
-var planet_quantity = []
-var player_quantity = []
+var score = 0
+# {score: 0, initials: "AAA"}
+var high_scores = []
 
 var savegame_filename = "user://savegame.save"
+var highscores_filename = "user://hiscores.save"
 
 func _ready():
+	load_high_scores()
 	if load_game():
 		print("Loaded game")
 		return
 	new_game()
 
 func new_game():
-	print("New game")
-	funds = 2000
-	prices = []
-	planet_quantity = []
-	player_quantity = []		
+	funds = 0
+	score = 0
 
 # Save the state of the game
 func save_game():
@@ -66,6 +54,26 @@ func load_game():
 		return false
 	return true
 
+func save_high_scores():
+	var save_dict = {
+		"high_scores": high_scores
+	}
+	var save_file = File.new()
+	save_file.open(highscores_filename, File.WRITE)
+	save_file.store_var(save_dict)
+	save_file.close()
+
+func load_high_scores():
+	var save_file = File.new()
+	if not save_file.file_exists(highscores_filename):
+		return false
+
+	save_file.open(highscores_filename, File.READ)
+	var save_dict = save_file.get_var()
+	high_scores = save_dict["high_scores"] if "high_scores" in save_dict else []
+	save_file.close()
+	return true
+
 func can_buy_ship(ship_id):
 	if is_ship_owned(ship_id):
 		return false
@@ -94,3 +102,28 @@ func is_ship_owned(ship_id):
 func set_selected_ship_id(id):
 	current_ship_id = id
 	save_game()
+
+
+func increment_score(amount):
+	score += amount
+
+func high_score_reached():
+	if len(high_scores) < 10:
+		return true
+	for i in range(10):
+		if score > high_scores[i].score:
+			return true
+	return false
+
+func add_high_score(initials):
+	var new_score = {
+		"score": score,
+		"initials": initials
+	}
+	high_scores.append(new_score)
+	high_scores.sort_custom(self, "sort_scores")
+	print(high_scores)
+	save_high_scores()
+
+func sort_scores(a, b):
+	return a.score > b.score  
