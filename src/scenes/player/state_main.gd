@@ -50,7 +50,7 @@ func handle_input(event: InputEvent) -> void:
 func exit() -> void:
 	owner.ShootTimer.stop()
 
-func kill():
+func damage():
 	if blinking:
 		return
 

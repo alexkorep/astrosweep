@@ -137,3 +137,16 @@ func increment_lives():
 
 func decrement_lives():
 	lives -= 1
+
+func check_drop_probability(powerup):
+	var rand = randf()
+	if powerup == "heart":
+		if rand < 0.05:
+			return true
+	elif powerup == "shield":
+		if rand < 0.2:
+			return true
+	elif powerup == "weapon":
+		if rand < 0.3:
+			return true
+	return false

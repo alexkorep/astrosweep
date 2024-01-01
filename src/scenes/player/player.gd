@@ -25,8 +25,8 @@ func _ready():
 	get_node("%ShootTimer").wait_time = 1.0/ship["gun_rps"]
 	get_node("%ShipSprite").set_ship_id(ship_id)
 
-func kill():
-	PlayerStateMachine.state.kill()
+func damage():
+	PlayerStateMachine.state.damage()
 
 func emit_ship_exploded():
 	emit_signal("ship_exploded")

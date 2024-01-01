@@ -41,7 +41,8 @@ func enemy_kill():
 	ExplosionParticles.emitting = true
 	ExplosionTimer.start()
 	emit_signal("asteroid_killed")
-	drop_powerup("heart")
+	if GameState.check_drop_probability("heart"):
+		drop_powerup("heart")
 	
 func drop_powerup(powerup_id):
 	var powerup = powerup_scene.instance()
@@ -52,7 +53,7 @@ func _on_ExplosionTimer_timeout():
 	queue_free()
 
 func _on_Asteroid_body_entered(body):
-	if body.has_method("kill"):
-		# Killing the player
-		body.kill()
+	if body.has_method("damage"):
+		# Damaging the player
+		body.damage()
 

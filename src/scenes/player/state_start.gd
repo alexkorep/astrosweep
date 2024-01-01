@@ -23,5 +23,5 @@ func exit() -> void:
 func _on_tween_completed(_object, _key):
 	owner.PlayerStateMachine.transition_to("Main")
 
-func kill():
+func damage():
 	pass

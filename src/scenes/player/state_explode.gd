@@ -21,5 +21,5 @@ func explosion_finished():
 func exit() -> void:
 	pass
 
-func kill():
+func damage():
 	pass
