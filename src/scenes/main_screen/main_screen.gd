@@ -8,11 +8,9 @@ var progress = 0.0
 # astroclicks persecond
 var speed = 0.01 
 
-var current_wave = 0
 var current_formation = null
 
 onready var Player = $Player
-onready var WaveLabel = $WaveLabel
 
 var formation_scenes = [
 	preload("res://scenes/asteroids/asteroids.tscn"),
@@ -20,11 +18,7 @@ var formation_scenes = [
 
 func _ready():
 	GameState.new_game()
-	current_wave = 0
-	update_wave_label()
-
-func update_wave_label():
-	WaveLabel.text = "Wave " + str(current_wave + 1)
+	GameState.set_wave(0)
 
 # Formation events
 #
@@ -33,7 +27,6 @@ func _on_enemy_died():
 	GameState.increment_score(1)
 
 func _on_wave_finished():
-	current_wave += 1
 	next_wave()
 	
 func _process(delta):
@@ -50,12 +43,12 @@ func _on_Player_player_ready():
 	next_wave()
 
 func next_wave():
+	GameState.next_wave()
 	if current_formation != null:
 		current_formation.queue_free()
 	var formation_num = randi() % formation_scenes.size()
 	current_formation = formation_scenes[formation_num].instance()
 	current_formation.connect("finished", self, "_on_wave_finished")
 	current_formation.connect("enemy_died", self, "_on_enemy_died")
-	current_formation.set_wave(current_wave)
+	current_formation.set_wave(GameState.wave)
 	get_node("%EnemyFormations").add_child(current_formation)
-	update_wave_label()

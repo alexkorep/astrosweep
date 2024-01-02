@@ -9,6 +9,7 @@ var score = 0
 var high_scores = []
 
 var lives = 3
+var wave = 1
 
 var savegame_filename = "user://savegame.save"
 var highscores_filename = "user://hiscores.save"
@@ -156,3 +157,8 @@ func drop_powerup():
 			return powerup
 	return null
 	
+func set_wave(value):
+	wave = value
+
+func next_wave():
+	set_wave(wave + 1)

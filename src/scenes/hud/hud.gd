@@ -11,3 +11,4 @@ func _ready():
 func _process(_delta):
 	get_node("%ScoreLabel").text = str(GameState.score).pad_zeros(5)
 	get_node("%Hearts").count = GameState.lives
+	get_node("%WaveLabel").text = "Wave " + str(GameState.wave)

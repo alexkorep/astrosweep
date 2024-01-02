@@ -13,7 +13,6 @@ func enter(_msg := {}) -> void:
 	# Should connect be moved to _on_ready?
 	get_node("%ShootTimer").start()
 	_on_ShootTimer_timeout()
-	owner.emit_player_ready()
 
 
 func _on_ShootTimer_timeout():
