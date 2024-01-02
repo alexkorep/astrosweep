@@ -1,4 +1,5 @@
 extends State
+class_name PlayerStateMain
 
 var mouse_pressed_position = Vector2.ZERO
 var mouse_pressed_ship_position = Vector2.ZERO
@@ -7,17 +8,15 @@ var mouse_pressed := false
 
 var bullet_scene = preload("res://scenes/player/player_bullet.tscn")
 
-var blinking = false
-
 func enter(_msg := {}) -> void:
 	# TODO would it connect multiple times if we enter this mode multiple times?
 	# Should connect be moved to _on_ready?
-	owner.ShootTimer.connect("timeout", self, "on_shoot_timer")
-	owner.ShootTimer.start()
-	on_shoot_timer()
+	get_node("%ShootTimer").start()
+	_on_ShootTimer_timeout()
 	owner.emit_player_ready()
 
-func on_shoot_timer():
+
+func _on_ShootTimer_timeout():
 	var b = bullet_scene.instance()
 	get_tree().root.add_child(b)
 	b.start(owner.GunPosition.global_position)
@@ -48,28 +47,11 @@ func handle_input(event: InputEvent) -> void:
 		target_move_position = event.position - mouse_pressed_position + mouse_pressed_ship_position
 
 func exit() -> void:
-	owner.ShootTimer.stop()
+	get_node("%ShootTimer").stop()
 
 func damage():
-	if blinking:
-		return
-
 	GameState.decrement_lives()
-	if GameState.lives <= 0:
-		owner.PlayerStateMachine.transition_to("Explode")
-	else:
-		blinking = true
-		get_node("%BlinkTimer").start()
-		get_node("%BlinkTimeoutTimer").start()
-
-func _on_BlinkTimer_timeout():
-	var sprite = get_node("%ShipSprite")
-	sprite.visible = not sprite.visible
-
-func _on_BlinkTimeoutTimer_timeout():
-	blinking = false
-	get_node("%ShipSprite").visible = true
-	get_node("%BlinkTimer").stop()
+	owner.PlayerStateMachine.transition_to("Explode")
 
 func powerup(powerup_id):
 	if powerup_id == "heart":

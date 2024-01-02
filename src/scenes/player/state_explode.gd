@@ -7,17 +7,9 @@ var timer = null
 func enter(_msg := {}) -> void:
 	owner.Ship.hide()
 	owner.ExplosionParticles.emitting = true
-	timer = Timer.new()
-	timer.connect("timeout", self, "explosion_finished")
-	add_child(timer)
-	timer.start(2.0)
+	timer = owner.get_node("%ExplodeTimer")
+	timer.start()
 	
-func explosion_finished():
-	# Delete timer child
-	timer.queue_free()
-	timer = null
-	owner.emit_ship_exploded()
-
 func exit() -> void:
 	pass
 
@@ -26,3 +18,10 @@ func damage():
 
 func powerup(_powerup_id):
 	pass
+
+func _on_ExplodeTimer_timeout():
+	if GameState.lives <= 0:
+		owner.emit_ship_exploded()
+	else:
+		print("Blinking")
+		owner.PlayerStateMachine.transition_to("Blinking")

@@ -13,7 +13,6 @@ onready var PlayerStateMachine = $PlayerStateMachine
 onready var Explosion = $Explosion
 onready var ExplosionParticles = $Explosion/ExplosionParticles
 onready var Ship = $Ship
-onready var ShootTimer = $ShootTimer
 onready var GunPosition = $Ship/GunPosition
 onready var ShipTrailParticles = $Ship/ShipTrailParticles
 onready var ShipSprite = $Ship/ShipSprite
