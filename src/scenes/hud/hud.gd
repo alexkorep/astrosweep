@@ -3,8 +3,11 @@ extends Control
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
-
+	var windowHeight = OS.get_real_window_size().y
+	var safeAreaTop = OS.get_window_safe_area().position.y
+	var normalizedPosition = safeAreaTop / windowHeight * 720
+	rect_position.y = normalizedPosition
+	
 func _process(_delta):
 	get_node("%ScoreLabel").text = str(GameState.score).pad_zeros(5)
 	get_node("%Hearts").count = GameState.lives
