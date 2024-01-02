@@ -138,12 +138,21 @@ func increment_lives():
 func decrement_lives():
 	lives -= 1
 
-func check_drop_probability(powerup):
+
+var powerup_drop_probability = {
+	"heart": 0.05,
+	"rps": 0.02,
+	"score": 0.1
+}
+
+func drop_powerup():
+	# Return a random powerup, or null if none
 	var rand = randf()
-	if powerup == "heart":
-		if rand < 0.05:
-			return true
-	elif powerup == "rps":
-		if rand < 0.02:
-			return true
-	return false
+	var total = 0
+	print("rand", rand)
+	for powerup in powerup_drop_probability:
+		total += powerup_drop_probability[powerup]
+		if rand < total:
+			return powerup
+	return null
+	

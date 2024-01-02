@@ -76,3 +76,5 @@ func powerup(powerup_id):
 		GameState.increment_lives()
 	elif powerup_id == "rps":
 		owner.increment_rps()
+	elif powerup_id == "score":
+		GameState.increment_score(100)
