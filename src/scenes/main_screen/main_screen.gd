@@ -1,7 +1,6 @@
 extends Control
 
 var is_paused = false
-var time = 0
 
 var progress = 0.0
 
@@ -20,7 +19,6 @@ var formation_scenes = [
 ]
 
 func _ready():
-	$Background.get_material().set_shader_param("speed_scale", 0.1)
 	GameState.new_game()
 	current_wave = 0
 	update_wave_label()
@@ -39,9 +37,6 @@ func _on_wave_finished():
 	next_wave()
 	
 func _process(delta):
-	if is_paused == false:
-		$Background.get_material().set_shader_param("time", time)
-		time += delta
 	if current_formation != null:
 		current_formation.set_player_pos(Player.position)
 
