@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://scenes/player/player_state_machine.gd" type="Script" id=1]
 [ext_resource path="res://assets/ships/fire02.png" type="Texture" id=2]
@@ -12,6 +12,7 @@
 [ext_resource path="res://scenes/player/state_blinking.gd" type="Script" id=10]
 [ext_resource path="res://scenes/ship/ship_sprite.tscn" type="PackedScene" id=11]
 [ext_resource path="res://scenes/player/gun.tscn" type="PackedScene" id=12]
+[ext_resource path="res://scenes/player/touch_controller.gd" type="Script" id=13]
 
 [sub_resource type="CircleShape2D" id=4]
 radius = 30.0666
@@ -72,6 +73,10 @@ initial_velocity_random = 0.3
 scale_amount = 0.5
 scale_amount_random = 1.0
 color_ramp = SubResource( 3 )
+
+[node name="TouchController" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource( 13 )
 
 [node name="PlayerStateMachine" type="Node" parent="."]
 script = ExtResource( 1 )

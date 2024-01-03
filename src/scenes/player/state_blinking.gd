@@ -16,12 +16,7 @@ func _on_BlinkTimer_timeout():
 func _on_BlinkTimeoutTimer_timeout():
 	get_node("%ShipSprite").visible = true
 	get_node("%BlinkTimer").stop()
-	owner.PlayerStateMachine.transition_to("Main", {
-		mouse_pressed_position: mouse_pressed_position,
-		mouse_pressed_ship_position: mouse_pressed_ship_position,
-		target_move_position: target_move_position,
-		mouse_pressed: mouse_pressed,
-	})
+	owner.PlayerStateMachine.transition_to("Main")
 
 func damage():
 	# No damage in this state
