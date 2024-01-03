@@ -18,28 +18,29 @@ margin_right = -16.0
 
 [node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer"]
 margin_right = 328.0
-margin_bottom = 20.0
+margin_bottom = 21.0
 
 [node name="ScoreLabel" type="Label" parent="MarginContainer/HBoxContainer"]
 unique_name_in_owner = true
-margin_right = 80.0
-margin_bottom = 20.0
+margin_right = 98.0
+margin_bottom = 21.0
 rect_min_size = Vector2( 80, 0 )
 theme = ExtResource( 2 )
 text = "0000000"
 
 [node name="WaveLabel" type="Label" parent="MarginContainer/HBoxContainer"]
 unique_name_in_owner = true
-margin_left = 84.0
+margin_left = 102.0
 margin_right = 244.0
-margin_bottom = 20.0
+margin_bottom = 21.0
 size_flags_horizontal = 3
 theme = ExtResource( 2 )
-text = "0000000"
+text = "Wave 01"
 align = 1
 
 [node name="Hearts" parent="MarginContainer/HBoxContainer" instance=ExtResource( 3 )]
 unique_name_in_owner = true
 margin_left = 248.0
+margin_bottom = 21.0
 rect_min_size = Vector2( 80, 0 )
 size_flags_horizontal = 1
