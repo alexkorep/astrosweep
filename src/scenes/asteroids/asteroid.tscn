@@ -30,6 +30,7 @@ initial_velocity = 172.84
 color_ramp = SubResource( 3 )
 
 [node name="Sprites" type="Node2D" parent="."]
+unique_name_in_owner = true
 
 [node name="Sprite01" type="Sprite" parent="Sprites"]
 texture = ExtResource( 1 )
@@ -37,19 +38,16 @@ region_enabled = true
 region_rect = Rect2( 459.488, 820.15, 135.604, 129.967 )
 
 [node name="Sprite02" type="Sprite" parent="Sprites"]
-visible = false
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 20.9334, 758.052, 69.8376, 75.4747 )
 
 [node name="Sprite03" type="Sprite" parent="Sprites"]
-visible = false
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 112.38, 778.095, 39.773, 45.0969 )
 
 [node name="Sprite04" type="Sprite" parent="Sprites"]
-visible = false
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 498.594, 641.545, 105.226, 104.913 )
@@ -60,13 +58,11 @@ region_enabled = true
 region_rect = Rect2( 852.861, 783.652, 44.4705, 43.531 )
 
 [node name="Sprite06" type="Sprite" parent="Sprites"]
-visible = false
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 311.527, 788.656, 25.9934, 27.8724 )
 
 [node name="Sprite07" type="Sprite" parent="Sprites"]
-visible = false
 texture = ExtResource( 1 )
 region_enabled = true
 region_rect = Rect2( 275.512, 845.967, 25.9933, 27.246 )
@@ -97,6 +93,12 @@ color_ramp = SubResource( 2 )
 
 [node name="ExplosionTimer" type="Timer" parent="."]
 
+[node name="HitAnimationTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 0.1
+one_shot = true
+
 [connection signal="body_entered" from="." to="." method="_on_Asteroid_body_entered"]
 [connection signal="screen_exited" from="VisibilityNotifier2D" to="." method="_on_VisibilityNotifier2D_screen_exited"]
 [connection signal="timeout" from="ExplosionTimer" to="." method="_on_ExplosionTimer_timeout"]
+[connection signal="timeout" from="HitAnimationTimer" to="." method="_on_HitAnimationTimer_timeout"]

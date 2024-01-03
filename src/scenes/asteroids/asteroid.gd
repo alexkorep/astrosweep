@@ -12,9 +12,17 @@ var powerup_scene = preload("res://scenes/powerup/powerup.tscn")
 
 export var speed := 50
 
+export var hp = 1
+var hp_adjusted = 0
+
+var white_shader_material = preload("res://resources/white_sprite_shadermaterial.tres")
+
+var hp_multiplier_per_sprite = [3, 2, 1, 2, 1, 1, 1]
+
 func _ready():
 	# Randomly select a sprite
 	var sprite_index = randi() % Sprites.get_child_count()
+	hp_adjusted = hp * hp_multiplier_per_sprite[sprite_index]
 	var i = 0
 	for sprite in Sprites.get_children():
 		sprite.visible = i == sprite_index
@@ -34,7 +42,25 @@ func _process(delta):
 func _on_VisibilityNotifier2D_screen_exited():
 	queue_free()
 
-func enemy_kill():
+func enemy_hit(damage):
+	hp_adjusted -= damage
+	if hp_adjusted <= 0:
+		kill()
+	else:
+		play_hit_animation()
+
+func play_hit_animation():
+	var sprites = get_node("%Sprites")
+	for sprite in sprites.get_children():
+		sprite.material = white_shader_material
+	get_node("%HitAnimationTimer").start()
+	
+func _on_HitAnimationTimer_timeout():
+	var sprites = get_node("%Sprites")
+	for sprite in sprites.get_children():
+		sprite.material = null
+
+func kill():	
 	for sprite in Sprites.get_children():
 		sprite.queue_free()
 	CollisionShape2D.queue_free()
@@ -59,4 +85,3 @@ func _on_Asteroid_body_entered(body):
 	if body.has_method("damage"):
 		# Damaging the player
 		body.damage()
-

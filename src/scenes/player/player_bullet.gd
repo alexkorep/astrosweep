@@ -13,6 +13,7 @@ func _on_visible_on_screen_notifier_2d_screen_exited():
 	queue_free()
 
 func _on_PlayerBullet_area_entered(area):
-	if area.has_method("enemy_kill"):
-		area.enemy_kill()
+	if area.has_method("enemy_hit"):
+		# TODO add damage
+		area.enemy_hit(1)
 		queue_free()
