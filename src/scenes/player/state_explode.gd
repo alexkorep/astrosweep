@@ -23,5 +23,4 @@ func _on_ExplodeTimer_timeout():
 	if GameState.lives <= 0:
 		owner.emit_ship_exploded()
 	else:
-		print("Blinking")
 		owner.PlayerStateMachine.transition_to("Blinking")

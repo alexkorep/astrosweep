@@ -34,4 +34,4 @@ func on_asteroid_killed():
 	emit_signal("enemy_died")
 
 func set_wave(idx):
-	asteroid_count = 20 + idx * 10
+	asteroid_count = 5 + idx * 3

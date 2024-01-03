@@ -6,19 +6,19 @@ var mouse_pressed_ship_position = Vector2.ZERO
 var target_move_position = Vector2.ZERO
 var mouse_pressed := false
 
-var bullet_scene = preload("res://scenes/player/player_bullet.tscn")
-
-func enter(_msg := {}) -> void:
+func enter(msg := {}) -> void:
 	# TODO would it connect multiple times if we enter this mode multiple times?
 	# Should connect be moved to _on_ready?
-	get_node("%ShootTimer").start()
-	_on_ShootTimer_timeout()
+	owner.get_node("%Gun").start()
+	if msg.has("mouse_pressed_position"):
+		mouse_pressed_position = msg.mouse_pressed_position
+	if msg.has("mouse_pressed_ship_position"):
+		mouse_pressed_ship_position = msg.mouse_pressed_ship_position
+	if msg.has("target_move_position"):
+		target_move_position = msg.target_move_position
+	if msg.has("mouse_pressed"):
+		mouse_pressed = msg.mouse_pressed
 
-
-func _on_ShootTimer_timeout():
-	var b = bullet_scene.instance()
-	get_tree().root.add_child(b)
-	b.start(owner.GunPosition.global_position)
 
 func update(delta: float) -> void:
 	if not mouse_pressed:
@@ -46,7 +46,7 @@ func handle_input(event: InputEvent) -> void:
 		target_move_position = event.position - mouse_pressed_position + mouse_pressed_ship_position
 
 func exit() -> void:
-	get_node("%ShootTimer").stop()
+	owner.get_node("%Gun").stop()
 
 func damage():
 	GameState.decrement_lives()

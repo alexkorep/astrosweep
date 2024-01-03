@@ -32,7 +32,6 @@ func _ready():
 	var size = sprite.region_rect.size.x
 	CollisionShape2D.shape = CircleShape2D.new()
 	CollisionShape2D.shape.radius = size / 2
-	print(CollisionShape2D.shape.radius)
 	CPUParticles2D.emission_shape = CPUParticles2D.EMISSION_SHAPE_RECTANGLE
 	CPUParticles2D.emission_rect_extents.x = size/2*0.8
 

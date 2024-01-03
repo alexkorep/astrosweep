@@ -13,15 +13,12 @@ onready var PlayerStateMachine = $PlayerStateMachine
 onready var Explosion = $Explosion
 onready var ExplosionParticles = $Explosion/ExplosionParticles
 onready var Ship = $Ship
-onready var GunPosition = $Ship/GunPosition
 onready var ShipTrailParticles = $Ship/ShipTrailParticles
 onready var ShipSprite = $Ship/ShipSprite
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	var ship_id = GameState.current_ship_id
-	var ship = ShipModels.get_ship_by_id(ship_id)
-	get_node("%ShootTimer").wait_time = 1.0/ship["gun_rps"]
 	get_node("%ShipSprite").set_ship_id(ship_id)
 
 func damage():

@@ -97,7 +97,6 @@ func buy_ship(ship_id):
 	current_ship_id = ship_id
 	owned_ships.append(ship_id)
 	save_game()
-	print("owned_ships", owned_ships)
 	return true
 
 func is_ship_owned(ship_id):
@@ -126,7 +125,6 @@ func add_high_score(initials):
 	}
 	high_scores.append(new_score)
 	high_scores.sort_custom(self, "sort_scores")
-	print(high_scores)
 	save_high_scores()
 
 func sort_scores(a, b):
@@ -150,7 +148,6 @@ func drop_powerup():
 	# Return a random powerup, or null if none
 	var rand = randf()
 	var total = 0
-	print("rand", rand)
 	for powerup in powerup_drop_probability:
 		total += powerup_drop_probability[powerup]
 		if rand < total:

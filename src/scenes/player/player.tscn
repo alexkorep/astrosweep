@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://scenes/player/player_state_machine.gd" type="Script" id=1]
 [ext_resource path="res://assets/ships/fire02.png" type="Texture" id=2]
@@ -11,6 +11,7 @@
 [ext_resource path="res://scenes/player/player.gd" type="Script" id=9]
 [ext_resource path="res://scenes/player/state_blinking.gd" type="Script" id=10]
 [ext_resource path="res://scenes/ship/ship_sprite.tscn" type="PackedScene" id=11]
+[ext_resource path="res://scenes/player/gun.tscn" type="PackedScene" id=12]
 
 [sub_resource type="CircleShape2D" id=4]
 radius = 30.0666
@@ -53,8 +54,8 @@ color_ramp = SubResource( 1 )
 [node name="ShipSprite" parent="Ship" instance=ExtResource( 11 )]
 unique_name_in_owner = true
 
-[node name="GunPosition" type="Node2D" parent="Ship"]
-position = Vector2( 0, -53 )
+[node name="Gun" parent="Ship" instance=ExtResource( 12 )]
+unique_name_in_owner = true
 
 [node name="Explosion" type="Node2D" parent="."]
 
@@ -85,9 +86,6 @@ script = ExtResource( 5 )
 [node name="Main" type="Node" parent="PlayerStateMachine"]
 script = ExtResource( 6 )
 
-[node name="ShootTimer" type="Timer" parent="PlayerStateMachine/Main"]
-unique_name_in_owner = true
-
 [node name="Explode" type="Node" parent="PlayerStateMachine"]
 script = ExtResource( 7 )
 
@@ -108,7 +106,6 @@ unique_name_in_owner = true
 wait_time = 3.0
 one_shot = true
 
-[connection signal="timeout" from="PlayerStateMachine/Main/ShootTimer" to="PlayerStateMachine/Main" method="_on_ShootTimer_timeout"]
 [connection signal="timeout" from="PlayerStateMachine/Explode/ExplodeTimer" to="PlayerStateMachine/Explode" method="_on_ExplodeTimer_timeout"]
 [connection signal="timeout" from="PlayerStateMachine/Blinking/BlinkTimer" to="PlayerStateMachine/Blinking" method="_on_BlinkTimer_timeout"]
 [connection signal="timeout" from="PlayerStateMachine/Blinking/BlinkTimeoutTimer" to="PlayerStateMachine/Blinking" method="_on_BlinkTimeoutTimer_timeout"]
