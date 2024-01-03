@@ -49,8 +49,4 @@ func powerup(powerup_id):
 
 func increment_rps():
 	# TODO work with ship id
-	var min_wait_time = 0.1
-	var shoot_timer = get_node("%ShootTimer")
-	if shoot_timer.wait_time > min_wait_time:
-		shoot_timer.wait_time /= 2
-	
+	get_node("%Gun").increment_rps()

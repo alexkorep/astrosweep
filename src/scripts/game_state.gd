@@ -140,7 +140,7 @@ func decrement_lives():
 
 var powerup_drop_probability = {
 	"heart": 0.05,
-	"rps": 0.02,
+	"rps": 0.2,
 	"score": 0.1
 }
 
