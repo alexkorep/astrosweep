@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scenes/main_screen/music_player.gd" type="Script" id=1]
+[ext_resource path="res://assets/music/music001.wav" type="AudioStream" id=2]
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer"]
+stream = ExtResource( 2 )
+script = ExtResource( 1 )

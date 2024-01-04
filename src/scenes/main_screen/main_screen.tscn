@@ -1,9 +1,11 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://scenes/background/background.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/player/player.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/main_screen/music_player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/hud/hud.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/main_screen/main_screen.gd" type="Script" id=5]
+[ext_resource path="res://scenes/banner/banner.tscn" type="PackedScene" id=6]
 
 [node name="ShmupScreen" type="Control"]
 anchor_right = 1.0
@@ -26,5 +28,16 @@ max_speed = 500.0
 [node name="HUD" parent="." instance=ExtResource( 4 )]
 mouse_filter = 1
 
+[node name="MusicPlayer" parent="." instance=ExtResource( 3 )]
+
+[node name="Banner" parent="." instance=ExtResource( 6 )]
+unique_name_in_owner = true
+
+[node name="NextWaveTimer" type="Timer" parent="."]
+unique_name_in_owner = true
+wait_time = 2.0
+one_shot = true
+
 [connection signal="player_ready" from="Player" to="." method="_on_Player_player_ready"]
 [connection signal="ship_exploded" from="Player" to="." method="_on_Player_ship_exploded"]
+[connection signal="timeout" from="NextWaveTimer" to="." method="_on_NextWaveTimer_timeout"]

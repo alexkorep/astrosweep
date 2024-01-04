@@ -11,6 +11,8 @@ var speed = 0.01
 var current_formation = null
 
 onready var Player = $Player
+onready var banner = get_node("%Banner")
+onready var next_wave_timer = get_node("%NextWaveTimer")
 
 var formation_scenes = [
 	preload("res://scenes/asteroids/asteroids.tscn"),
@@ -44,6 +46,13 @@ func _on_Player_player_ready():
 
 func next_wave():
 	GameState.next_wave()
+	banner.text = "Wave " + str(GameState.wave)
+	banner.start()
+	next_wave_timer.start()
+	
+
+
+func _on_NextWaveTimer_timeout():
 	if current_formation != null:
 		current_formation.queue_free()
 	var formation_num = randi() % formation_scenes.size()
