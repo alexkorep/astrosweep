@@ -12,7 +12,13 @@ var current_formation = null
 
 onready var Player = $Player
 onready var banner = get_node("%Banner")
-onready var next_wave_timer = get_node("%NextWaveTimer")
+
+enum WaveState {
+	# Display level/attempt screen
+	WAVE_INTRO,
+	# Display level cleared/wave failed screen
+	WAVE_RESULTS
+}
 
 var formation_scenes = [
 	preload("res://scenes/asteroids/asteroids.tscn"),
@@ -29,7 +35,10 @@ func _on_enemy_died():
 	GameState.increment_score(1)
 
 func _on_wave_finished():
-	next_wave()
+	# TODo remember and show win/loose
+	banner.text = "Wave Finished"
+	banner.extra = WaveState.WAVE_RESULTS
+	banner.start()
 	
 func _process(delta):
 	if current_formation != null:
@@ -48,11 +57,9 @@ func next_wave():
 	GameState.next_wave()
 	banner.text = "Wave " + str(GameState.wave)
 	banner.start()
-	next_wave_timer.start()
-	
+	banner.extra = WaveState.WAVE_INTRO
 
-
-func _on_NextWaveTimer_timeout():
+func start_wave():
 	if current_formation != null:
 		current_formation.queue_free()
 	var formation_num = randi() % formation_scenes.size()
@@ -61,3 +68,12 @@ func _on_NextWaveTimer_timeout():
 	current_formation.connect("enemy_died", self, "_on_enemy_died")
 	current_formation.set_wave(GameState.wave)
 	get_node("%EnemyFormations").add_child(current_formation)
+
+
+func _on_Banner_finished():
+	if banner.extra == WaveState.WAVE_INTRO:
+		start_wave()
+	else:
+		# TODO depending on wave win/loose either 
+		# next wave, or the same
+		next_wave()
