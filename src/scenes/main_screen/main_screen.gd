@@ -38,6 +38,7 @@ func _on_wave_finished():
 		banner.text = "Clear!"
 	else:
 		banner.text = "Failed!"
+		Player.explode()
 	banner.extra = WaveState.WAVE_RESULTS
 	banner.start()
 	

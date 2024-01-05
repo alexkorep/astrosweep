@@ -23,6 +23,10 @@ func _ready():
 
 func damage():
 	PlayerStateMachine.state.damage()
+	
+func explode():
+	# Called by the main_screen when the attempt failed
+	damage()
 
 func emit_ship_exploded():
 	emit_signal("ship_exploded")
