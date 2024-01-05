@@ -14,6 +14,7 @@ export var speed := 50
 
 export var hp = 1
 var hp_adjusted = 0
+var is_killed = false
 
 var white_shader_material = preload("res://resources/white_sprite_shadermaterial.tres")
 
@@ -59,7 +60,12 @@ func _on_HitAnimationTimer_timeout():
 	for sprite in sprites.get_children():
 		sprite.material = null
 
-func kill():	
+func kill():
+	if is_killed:
+		# Ignore multiple hits
+		return
+
+	is_killed = true
 	for sprite in Sprites.get_children():
 		sprite.queue_free()
 	CollisionShape2D.queue_free()
