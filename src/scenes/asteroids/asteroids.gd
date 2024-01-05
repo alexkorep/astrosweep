@@ -34,4 +34,4 @@ func on_asteroid_killed():
 	emit_signal("enemy_died")
 
 func set_wave(idx):
-	asteroid_count = 5 + idx * 3
+	asteroid_count = GameState.get_asteroids_per_wave(idx)

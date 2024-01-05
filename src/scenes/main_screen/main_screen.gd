@@ -31,12 +31,13 @@ func _ready():
 # Formation events
 #
 func _on_enemy_died():
-	# TODO increase score based on the enemy hp
-	GameState.increment_score(1)
+	GameState.asteroid_killed()
 
 func _on_wave_finished():
-	# TODo remember and show win/loose
-	banner.text = "Wave Finished"
+	if GameState.is_current_wave_cleared():
+		banner.text = "Clear!"
+	else:
+		banner.text = "Failed!"
 	banner.extra = WaveState.WAVE_RESULTS
 	banner.start()
 	
@@ -51,11 +52,11 @@ func _on_Player_ship_exploded():
 		get_tree().change_scene("res://scenes/high_score/high_score.tscn")
 
 func _on_Player_player_ready():
-	next_wave()
-
-func next_wave():
 	GameState.next_wave()
-	banner.text = "Wave " + str(GameState.wave)
+	show_wave_banner()
+
+func show_wave_banner():
+	banner.text = "Wave " + str(GameState.wave) + "\nAttempt " + str(GameState.wave_attempt)
 	banner.start()
 	banner.extra = WaveState.WAVE_INTRO
 
@@ -74,6 +75,8 @@ func _on_Banner_finished():
 	if banner.extra == WaveState.WAVE_INTRO:
 		start_wave()
 	else:
-		# TODO depending on wave win/loose either 
-		# next wave, or the same
-		next_wave()
+		if GameState.is_current_wave_cleared():
+			GameState.next_wave()
+		else:
+			GameState.next_attempt()
+		show_wave_banner()

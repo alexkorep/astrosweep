@@ -10,6 +10,12 @@ var high_scores = []
 
 var lives = 3
 var wave = 1
+# Number of asteroids killed on the current wave,
+# needed to track if the wave is cleared or some asteroids have passed
+var asteroids_killed = 0
+
+# Number of times the player has attempts the current wave, 1-based
+var wave_attempt = 0
 
 var savegame_filename = "user://savegame.save"
 var highscores_filename = "user://hiscores.save"
@@ -159,3 +165,22 @@ func set_wave(value):
 
 func next_wave():
 	set_wave(wave + 1)
+	asteroids_killed = 0
+	wave_attempt = 1
+
+func next_attempt():
+	wave_attempt += 1
+	asteroids_killed = 0
+
+func asteroid_killed():
+	increment_score(1)
+	asteroids_killed += 1
+
+func get_asteroids_per_wave(idx):
+	return 5 + (idx - 1) * 3
+
+func get_asteroids_in_current_wave():
+	return get_asteroids_per_wave(wave)
+
+func is_current_wave_cleared():
+	return asteroids_killed >= get_asteroids_per_wave(wave)
