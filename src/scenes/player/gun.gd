@@ -16,7 +16,11 @@ func stop():
 
 func _on_ShootTimer_timeout():
 	var b = bullet_scene.instance()
-	get_tree().root.add_child(b)
+	var root = get_tree().current_scene
+	# TODO Do not reference the BulletsLayer node by name.
+	# Add some kind of dependency injection or something.
+	var target_node = root.get_node("BulletsLayer")
+	target_node.add_child(b)
 	b.start(global_position)
 
 func increment_rps():

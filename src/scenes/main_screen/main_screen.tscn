@@ -25,6 +25,9 @@ mouse_filter = 2
 position = Vector2( 180, 519 )
 max_speed = 500.0
 
+[node name="BulletsLayer" type="Node2D" parent="."]
+unique_name_in_owner = true
+
 [node name="HUD" parent="." instance=ExtResource( 4 )]
 mouse_filter = 1
 
