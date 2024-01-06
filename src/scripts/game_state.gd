@@ -144,21 +144,26 @@ func decrement_lives():
 	lives -= 1
 
 
-var powerup_drop_probability = {
-	"heart": 0.05,
-	"rps": 0.2,
-	"score": 0.1
+var powerup_drop_chance_per_wave = {
+	"heart": 1,
+	"rps": 2,
 }
 
-func drop_powerup():
-	# Return a random powerup, or null if none
-	var rand = randf()
+func get_random_powerup() -> String:
 	var total = 0
-	for powerup in powerup_drop_probability:
-		total += powerup_drop_probability[powerup]
-		if rand < total:
+	for value in powerup_drop_chance_per_wave.values():
+		total += value
+
+	var rand = randi() % total
+	var cumulative = 0
+
+	for powerup in powerup_drop_chance_per_wave.keys():
+		cumulative += powerup_drop_chance_per_wave[powerup]
+		if rand < cumulative:
 			return powerup
-	return null
+		# Should never happen
+	assert(false)
+	return ""
 	
 func set_wave(value):
 	wave = value
@@ -177,7 +182,7 @@ func asteroid_killed():
 	asteroids_killed += 1
 
 func get_asteroids_per_wave(idx):
-	return 5 + (idx - 1) * 3
+	return idx * 2
 
 func get_asteroid_hp(idx):
 	return idx

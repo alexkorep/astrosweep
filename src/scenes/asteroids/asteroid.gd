@@ -11,6 +11,7 @@ onready var CPUParticles2D = $CPUParticles2D
 var powerup_scene = preload("res://scenes/powerup/powerup.tscn")
 
 export var speed := 50
+export var powerup_id := ""
 
 export var hp = 1
 var hp_adjusted = 0
@@ -73,9 +74,8 @@ func kill():
 	ExplosionTimer.start()
 	emit_signal("asteroid_killed")
 	# TODO move to a separate function
-	var powerup = GameState.drop_powerup()
-	if powerup != null:
-		drop_powerup(powerup)
+	if powerup_id != "":
+		drop_powerup(powerup_id)
 	
 func drop_powerup(powerup_id):
 	var powerup = powerup_scene.instance()

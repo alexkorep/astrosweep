@@ -10,7 +10,7 @@ var asteroid_instance := preload("res://scenes/asteroids/asteroid.tscn")
 var is_finished = false
 
 func _ready():
-	for _i in range(asteroid_count):
+	for i in range(asteroid_count):
 		var asteroid := asteroid_instance.instance()
 		asteroid.position = Vector2(
 			rand_range(rect_position.x, rect_position.x + rect_size.x), 
@@ -21,6 +21,10 @@ func _ready():
 		# warning-ignore:return_value_discarded
 		asteroid.connect("asteroid_killed", self, "on_asteroid_killed")
 		asteroid.hp = asteroid_hp
+		if i == asteroid_count - 1:
+			# last asteroid is a powerup
+			asteroid.powerup_id = GameState.get_random_powerup()
+			print(asteroid.powerup_id)
 		add_child(asteroid)
 
 func _process(_delta):
