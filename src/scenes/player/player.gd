@@ -51,6 +51,5 @@ func set_show_ship_trail(value):
 func powerup(powerup_id):
 	PlayerStateMachine.state.powerup(powerup_id)
 
-func increment_rps():
-	# TODO work with ship id
-	get_node("%Gun").increment_rps()
+func upgrade_gun_level():
+	get_node("%Gun").upgrade_gun_level()

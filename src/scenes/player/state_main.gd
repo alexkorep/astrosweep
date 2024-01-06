@@ -23,6 +23,6 @@ func powerup(powerup_id):
 	if powerup_id == "heart":
 		GameState.increment_lives()
 	elif powerup_id == "rps":
-		owner.increment_rps()
+		owner.upgrade_gun_level()
 	elif powerup_id == "score":
 		GameState.increment_score(100)

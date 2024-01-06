@@ -3,8 +3,10 @@ extends Area2D
 export var speed = 150
 export var direction = Vector2.ZERO
 
-func start(pos):
+func start(pos, dir):
 	position = pos
+	direction = dir
+	rotation = direction.angle() + PI / 2
 	
 func _process(delta):
 	position += speed * delta * direction.normalized()
