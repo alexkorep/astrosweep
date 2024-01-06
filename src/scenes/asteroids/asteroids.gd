@@ -1,6 +1,7 @@
 extends Control
 
 var asteroid_count := 20
+var asteroid_hp := 1
 
 signal finished
 signal enemy_died
@@ -19,6 +20,7 @@ func _ready():
 		# subscribe to asteroid_killed
 		# warning-ignore:return_value_discarded
 		asteroid.connect("asteroid_killed", self, "on_asteroid_killed")
+		asteroid.hp = asteroid_hp
 		add_child(asteroid)
 
 func _process(_delta):
@@ -35,3 +37,4 @@ func on_asteroid_killed():
 
 func set_wave(idx):
 	asteroid_count = GameState.get_asteroids_per_wave(idx)
+	asteroid_hp = GameState.get_asteroid_hp(idx)

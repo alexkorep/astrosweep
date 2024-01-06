@@ -179,6 +179,9 @@ func asteroid_killed():
 func get_asteroids_per_wave(idx):
 	return 5 + (idx - 1) * 3
 
+func get_asteroid_hp(idx):
+	return idx
+
 func get_asteroids_in_current_wave():
 	return get_asteroids_per_wave(wave)
 
