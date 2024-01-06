@@ -37,5 +37,5 @@ func _on_Timer_timeout():
 
 func _on_tween_completed(_object, _key):
 	if fading_out:
-		emit_signal("finished")
 		text_label.hide()
+		emit_signal("finished")
