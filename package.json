@@ -1,0 +1,14 @@
+{
+  "name": "astrosweep",
+  "version": "1.0.0",
+  "description": "A vertical shooter/scroller.",
+  "main": "index.js",
+  "scripts": {
+    "deploy": "gh-pages -d export/html5"
+  },
+  "author": "Alexey Korepanov",
+  "license": "Apache License",
+  "dependencies": {
+    "gh-pages": "^6.1.1"
+  }
+}
