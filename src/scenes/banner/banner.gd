@@ -18,6 +18,7 @@ func _ready():
 	tween.connect("tween_completed", self, "_on_tween_completed")
 	
 func start():
+	text_label.show()
 	text_label.text = text
 	tween.interpolate_property(text_label, 
 		"margin_top", -50, 240, 1, 
@@ -32,8 +33,9 @@ func _on_Timer_timeout():
 		Tween.TRANS_CIRC, Tween.EASE_IN)
 	tween.start()
 	fading_out = true
-	
+
 
 func _on_tween_completed(_object, _key):
 	if fading_out:
 		emit_signal("finished")
+		text_label.hide()

@@ -48,9 +48,8 @@ func _process(delta):
 
 func _on_Player_ship_exploded():
 	if GameState.high_score_reached():
-		get_tree().change_scene("res://scenes/high_score/enter_your_initials.tscn")
-	else:
-		get_tree().change_scene("res://scenes/high_score/high_score.tscn")
+		GameState.add_high_score()
+	get_tree().change_scene("res://scenes/high_score/high_score.tscn")
 
 func _on_Player_player_ready():
 	GameState.next_wave()

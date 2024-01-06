@@ -18,7 +18,7 @@ func _process(delta):
 func _input(event):
 	if ((event is InputEventKey and event.pressed) 
 	or (event is InputEventMouseButton and event.pressed)):
-		get_tree().change_scene("res://scenes/main_screen/main_screen.tscn")
+		get_tree().change_scene("res://scenes/start_screen/start_screen.tscn")
 
 func _update_scores():
 	var score_list = get_node("%ScoreList")
@@ -27,9 +27,9 @@ func _update_scores():
 	for score_row in score_list.get_children():
 		if i < len(scores):
 			var score = scores[i]
-			score_row.initials = score.initials
+			score_row.datetime = score.datetime if "datetime" in score else "---"
 			score_row.score = score.score
 		else:
-			score_row.initials = "AAA"
+			score_row.datetime = "---"
 			score_row.score = 0
 		i += 1
